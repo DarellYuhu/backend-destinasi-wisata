@@ -6,6 +6,7 @@ const {
   getAllDestination,
   getDestinationById,
   updateDestinationData,
+  removeDestination,
 } = require("./object_wisata.service");
 const upload = multer({ storage: storage });
 
@@ -74,6 +75,30 @@ router.patch("/:id", async (req, res) => {
     return res.status(200).json({
       status: "success",
       message: "Destination updated successfully",
+      data: destination,
+    });
+  } catch (error) {
+    if (error.code === "P2025") {
+      return res.status(404).json({
+        status: "error",
+        message: "Destination not found",
+      });
+    }
+    console.log(error);
+    return res.status(500).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const destination = await removeDestination(id);
+    return res.status(200).json({
+      status: "success",
+      message: "Destination deleted successfully",
       data: destination,
     });
   } catch (error) {

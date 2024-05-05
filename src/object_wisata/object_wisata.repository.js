@@ -48,9 +48,16 @@ const updateDestination = async (id, payload) => {
   });
 };
 
+const deleteDestination = async (id) => {
+  return await prisma.objek_wisata.delete({
+    where: { id },
+  });
+};
+
 module.exports = {
   createDestination,
   findAllDestination,
   findDestinationById,
   updateDestination,
+  deleteDestination,
 };

@@ -35,5 +35,5 @@ model gambar {
   id              String       @id @default(cuid())
   path            String
   objek_wisata_id String
-  objek_wisata    objek_wisata @relation(fields: [objek_wisata_id], references: [id])
+  objek_wisata    objek_wisata @relation(fields: [objek_wisata_id], references: [id], onDelete: Cascade)
 }
