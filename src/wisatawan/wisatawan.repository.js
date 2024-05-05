@@ -22,4 +22,12 @@ const findWisatawanByUniqueKey = async (payload) => {
   });
 };
 
-module.exports = { createWisatawan, findWisatawanByUniqueKey };
+const findAllWisatawan = async () => {
+  return prisma.wisatawan.findMany();
+};
+
+module.exports = {
+  createWisatawan,
+  findWisatawanByUniqueKey,
+  findAllWisatawan,
+};
