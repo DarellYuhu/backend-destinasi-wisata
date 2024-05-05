@@ -13,11 +13,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Admin {
+model admin {
   id       String @id @default(cuid())
-  email    String
+  email    String @unique
   password String
-  name     String
-  address  String
-  phoneNum String
+  nama     String
+  alamat   String
+  no_hp    String
+}
+
+model objek_wisata {
+  id         String   @id @default(cuid())
+  nama       String
+  alamat     String
+  keterangan String
+  rute       String
+  gambar     gambar[]
+}
+
+model gambar {
+  id              String       @id @default(cuid())
+  path            String
+  objek_wisata_id String
+  objek_wisata    objek_wisata @relation(fields: [objek_wisata_id], references: [id])
 }
