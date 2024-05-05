@@ -23,12 +23,12 @@ model admin {
 }
 
 model objek_wisata {
-  id         String   @id @default(cuid())
-  nama       String
-  alamat     String
-  keterangan String
-  rute       String
-  gambar     gambar[]
+  id                String   @id @default(cuid())
+  nama              String
+  alamat            String
+  keterangan        String
+  waktu_operasional String
+  gambar            gambar[]
 }
 
 model gambar {
