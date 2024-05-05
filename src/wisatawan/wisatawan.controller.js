@@ -4,6 +4,8 @@ const {
   loginWisatawan,
   getWisatawan,
   getAllWisatawan,
+  updateWisatawanData,
+  removeWisatawan,
 } = require("./wisatawan.service");
 
 const router = express.Router();
@@ -71,6 +73,55 @@ router.get("/", async (req, res) => {
       data: data,
     });
   } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+});
+
+router.patch("/:id", async (req, res) => {
+  const data = req.body;
+  const id = req.params.id;
+  try {
+    const wisatawan = await updateWisatawanData(id, data);
+    return res.status(200).json({
+      status: "success",
+      message: "Wisatawan updated",
+      data: wisatawan,
+    });
+  } catch (error) {
+    if (error.code === "P2025") {
+      return res.status(404).json({
+        status: "error",
+        message: "Wisatawan not found",
+      });
+    }
+    console.log(error);
+    return res.status(500).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const data = await removeWisatawan(id);
+    return res.status(200).json({
+      status: "success",
+      message: "Wisatawan deleted",
+      data,
+    });
+  } catch (error) {
+    if (error.code === "P2025") {
+      return res.status(404).json({
+        status: "error",
+        message: "Wisatawan not found",
+      });
+    }
     console.log(error);
     return res.status(500).json({
       status: "error",

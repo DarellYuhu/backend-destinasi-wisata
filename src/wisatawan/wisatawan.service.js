@@ -2,6 +2,8 @@ const {
   createWisatawan,
   findWisatawanByUniqueKey,
   findAllWisatawan,
+  updateWisatawan,
+  deleteWisatawan,
 } = require("./wisatawan.repository");
 
 const createNewWisatawan = async (payload) => {
@@ -40,9 +42,25 @@ const getAllWisatawan = async () => {
   return await findAllWisatawan();
 };
 
+const updateWisatawanData = async (id, payload) => {
+  if (!id) {
+    throw new Error("ID is required");
+  }
+  return updateWisatawan(id, payload);
+};
+
+const removeWisatawan = async (id) => {
+  if (!id) {
+    throw new Error("ID is required");
+  }
+  return deleteWisatawan(id);
+};
+
 module.exports = {
   createNewWisatawan,
   loginWisatawan,
   getWisatawan,
   getAllWisatawan,
+  updateWisatawanData,
+  removeWisatawan,
 };
